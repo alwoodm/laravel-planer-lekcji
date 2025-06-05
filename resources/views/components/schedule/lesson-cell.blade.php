@@ -5,8 +5,8 @@
 ])
 
 @if($schedule)
-    <div class="h-24 p-2 bg-white dark:bg-gray-700 rounded-lg shadow-sm border-l-4 
-        hover:scale-105 transition-all duration-200 ease-in-out
+    <div class="h-full min-h-[100px] p-2 bg-white dark:bg-gray-700 rounded-lg shadow-sm border-l-4 
+        hover:scale-[1.02] transition-all duration-200 ease-in-out w-full
         @switch($schedule->subject->code)
             @case('MAT')
                 border-subject-math dark:border-subject-math-dark
@@ -60,6 +60,6 @@
         </div>
     </div>
 @else
-    <div class="h-24 border-2 border-dashed border-gray-200 dark:border-gray-700 
+    <div class="h-full min-h-[100px] border-2 border-dashed border-gray-200 dark:border-gray-700 
         bg-gray-50 dark:bg-gray-900 rounded-lg"></div>
 @endif

@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Facades\Route;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
@@ -8,10 +11,10 @@
         </div>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         @if(auth()->user()->isAdmin())
             <!-- Admin Dashboard -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <x-stats-card title="Nauczyciele" :value="$stats['teachers']" icon="users" />
                 <x-stats-card title="Uczniowie" :value="$stats['students']" icon="users" />
                 <x-stats-card title="Klasy" :value="$stats['classes']" icon="academic-cap" />
@@ -21,15 +24,38 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg transition-colors duration-300">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">{{ __('Panel administracyjny') }}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Admin Quick Links -->
-                        @foreach(['users' => 'Użytkownicy', 'classes' => 'Klasy', 'subjects' => 'Przedmioty', 'schedules' => 'Plan Lekcji', 'time-slots' => 'Godziny Lekcyjne'] as $resource => $label)
-                            <a href="{{ route('filament.admin.resources.'.$resource.'.index') }}" 
+                            <a href="{{ route('filament.admin.resources.users.index') }}" 
                                class="block p-4 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
-                                <div class="text-lg font-semibold text-white">{{ $label }}</div>
-                                <div class="text-sm text-blue-100">Zarządzaj zasobem</div>
+                                <div class="text-lg font-semibold text-white">Użytkownicy</div>
+                                <div class="text-sm text-blue-100">Zarządzaj użytkownikami</div>
                             </a>
-                        @endforeach
+                            
+                            <a href="{{ route('filament.admin.resources.school-classes.index') }}" 
+                               class="block p-4 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                                <div class="text-lg font-semibold text-white">Klasy</div>
+                                <div class="text-sm text-blue-100">Zarządzaj klasami</div>
+                            </a>
+                            
+                            <a href="{{ route('filament.admin.resources.subjects.index') }}" 
+                               class="block p-4 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                                <div class="text-lg font-semibold text-white">Przedmioty</div>
+                                <div class="text-sm text-blue-100">Zarządzaj przedmiotami</div>
+                            </a>
+                            
+                            <a href="{{ route('filament.admin.resources.schedules.index') }}" 
+                               class="block p-4 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                                <div class="text-lg font-semibold text-white">Plan Lekcji</div>
+                                <div class="text-sm text-blue-100">Zarządzaj planami lekcji</div>
+                            </a>
+                            
+                            <a href="{{ route('filament.admin.resources.time-slots.index') }}" 
+                               class="block p-4 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                                <div class="text-lg font-semibold text-white">Godziny Lekcyjne</div>
+                                <div class="text-sm text-blue-100">Zarządzaj godzinami lekcyjnymi</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

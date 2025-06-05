@@ -52,11 +52,10 @@ class TimeSlotResource extends Resource
                     ->label('Numer lekcji')
                     ->sortable(),
                     
-                Tables\Columns\TextColumn::make('formatted_time')
+                Tables\Columns\TextColumn::make('start_time')
                     ->label('Godziny')
-                    ->sortable(
-                        query: fn ($query, $direction) => $query->orderBy('start_time', $direction)
-                    ),
+                    ->formatStateUsing(fn (TimeSlot $record): string => $record->getFormattedTimeAttribute())
+                    ->sortable(),
                     
                 Tables\Columns\TextColumn::make('schedules_count')
                     ->label('Liczba lekcji')

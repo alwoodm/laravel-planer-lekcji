@@ -1,12 +1,12 @@
-<div>
+<div class="w-full">
     <div class="overflow-x-auto mb-4">
-        <table class="min-w-full border-collapse border border-gray-300">
+        <table class="min-w-full border-collapse border border-gray-300 min-w-[1000px]">
             <thead>
                 <tr>
                     <th class="border border-gray-300 px-4 py-2 bg-gray-100 dark:bg-gray-700">Nr</th>
                     <th class="border border-gray-300 px-4 py-2 bg-gray-100 dark:bg-gray-700">Godziny</th>
                     @foreach ($weekDays as $day)
-                        <th class="border border-gray-300 px-4 py-2 bg-gray-100 dark:bg-gray-700">{{ $polishDays[$day] }}</th>
+                        <th class="border border-gray-300 px-4 py-2 bg-gray-100 dark:bg-gray-700 min-w-[180px]">{{ $polishDays[$day] }}</th>
                     @endforeach
                 </tr>
             </thead>

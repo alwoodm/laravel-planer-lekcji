@@ -1,4 +1,4 @@
-@props(['schedule'])
+@props(['schedule', 'showTeacher' => false, 'showClass' => false])
 
 <div class="h-full w-full p-2 transition-all duration-200 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md">
     <div class="font-semibold text-sm text-gray-900 dark:text-gray-100">
