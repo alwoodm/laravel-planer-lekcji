@@ -5,31 +5,34 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
-// Publiczna strona główna
+// Publiczne routes
 Route::get('/', function () {
-    return view('welcome');
+    return auth()->check() ? redirect('/dashboard') : view('welcome');
 });
 
-// Strona dashboard (wymaga uwierzytelnienia)
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Publiczne plany lekcji
+Route::get('/plan/klasa/{class}', [ScheduleController::class, 'showClassSchedule'])
+    ->name('schedule.class');
+Route::get('/plan/nauczyciel/{teacher}', [ScheduleController::class, 'showTeacherSchedule'])
+    ->name('schedule.teacher');
 
-// Publiczne plany lekcji (dostępne bez logowania)
-Route::get('/schedules/class/{classId}', [ScheduleController::class, 'showClassSchedule'])
-    ->name('schedules.class');
-Route::get('/schedules/teacher/{teacherId}', [ScheduleController::class, 'showTeacherSchedule'])
-    ->name('schedules.teacher');
-
-// Chronione trasy (wymagają uwierzytelnienia)
-Route::middleware('auth')->group(function () {
+// Protected routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard i plany lekcji
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/moj-plan', [ScheduleController::class, 'showMySchedule'])->name('schedule.my');
+    
     // Profil użytkownika
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // Mój plan lekcji
-    Route::get('/my-schedule', [ScheduleController::class, 'showMySchedule'])->name('schedules.my');
+
+    // Admin routes
+    Route::middleware(['role:admin'])->group(function () {
+        // Te trasy są dodatkowo chronione przez middleware 'role:admin'
+        Route::get('/admin-stats', [DashboardController::class, 'adminStats'])->name('admin.stats');
+    });
 });
 
+// Breeze routes
 require __DIR__.'/auth.php';

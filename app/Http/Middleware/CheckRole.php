@@ -9,18 +9,23 @@ use Symfony\Component\HttpFoundation\Response;
 class CheckRole
 {
     /**
-     * Sprawdza, czy użytkownik ma wymaganą rolę.
+     * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @param  string  $role
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, string $role)
     {
         if (!$request->user() || $request->user()->role !== $role) {
             if ($request->expectsJson()) {
                 return response()->json(['error' => 'Brak uprawnień.'], 403);
+            }
+            
+            // Dla panelu administracyjnego Filament
+            if (str_starts_with($request->path(), 'admin')) {
+                abort(403, 'Brak uprawnień do dostępu do panelu administracyjnego.');
             }
             
             return redirect()->route('dashboard')->with('error', 'Brak uprawnień do tej sekcji.');
