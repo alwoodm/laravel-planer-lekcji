@@ -5,7 +5,7 @@
 ])
 
 @if($schedule)
-    <div class="h-full min-h-[100px] p-2 bg-white dark:bg-gray-700 rounded-lg shadow-sm border-l-4 
+    <div class="h-full min-h-[80px] p-2 bg-white dark:bg-gray-700 rounded-lg shadow-sm border-l-4 
         hover:scale-[1.02] transition-all duration-200 ease-in-out w-full
         @switch($schedule->subject->code)
             @case('MAT')
@@ -60,6 +60,6 @@
         </div>
     </div>
 @else
-    <div class="h-full min-h-[100px] border-2 border-dashed border-gray-200 dark:border-gray-700 
+    <div class="h-full min-h-[80px] border-2 border-dashed border-gray-200 dark:border-gray-700 
         bg-gray-50 dark:bg-gray-900 rounded-lg"></div>
 @endif

@@ -53,7 +53,8 @@ class ScheduleResource extends Resource
                     
                 Forms\Components\Select::make('time_slot_id')
                     ->label('Godzina lekcyjna')
-                    ->relationship('timeSlot', 'formatted_time')
+                    ->relationship('timeSlot', 'id')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->getFormattedTimeAttribute())
                     ->preload()
                     ->searchable()
                     ->required(),
@@ -114,10 +115,12 @@ class ScheduleResource extends Resource
                     ->sortable()
                     ->numeric(),
                     
-                Tables\Columns\TextColumn::make('timeSlot.formatted_time')
+                Tables\Columns\TextColumn::make('timeSlot.id')
                     ->label('Godziny')
+                    ->formatStateUsing(fn ($record) => $record->timeSlot ? $record->timeSlot->getFormattedTimeAttribute() : '')
                     ->sortable(
-                        query: fn ($query, $direction) => $query->orderBy('time_slots.start_time', $direction)
+                        query: fn ($query, $direction) => $query->join('time_slots', 'schedules.time_slot_id', '=', 'time_slots.id')
+                            ->orderBy('time_slots.start_time', $direction)
                     ),
                     
                 Tables\Columns\TextColumn::make('room')

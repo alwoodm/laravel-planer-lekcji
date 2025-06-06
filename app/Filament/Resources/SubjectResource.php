@@ -32,8 +32,8 @@ class SubjectResource extends Resource
                     ->label('Kod')
                     ->required()
                     ->maxLength(10)
-                    ->formatStateUsing(fn (string $state): string => strtoupper($state))
-                    ->dehydrateStateUsing(fn (string $state): string => strtoupper($state)),
+                    ->formatStateUsing(fn ($state) => $state ? strtoupper($state) : '')
+                    ->dehydrateStateUsing(fn ($state) => $state ? strtoupper($state) : ''),
             ]);
     }
 
@@ -48,7 +48,7 @@ class SubjectResource extends Resource
                     
                 Tables\Columns\TextColumn::make('code')
                     ->label('Kod')
-                    ->formatStateUsing(fn (string $state): string => strtoupper($state))
+                    ->formatStateUsing(fn ($state) => $state ? strtoupper($state) : '')
                     ->searchable()
                     ->sortable(),
                     

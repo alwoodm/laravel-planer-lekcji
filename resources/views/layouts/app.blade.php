@@ -38,7 +38,7 @@
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow-sm transition-colors duration-300">
-                    <div class="w-full max-w-[1400px] mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="w-full max-w-[1920px] mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -57,6 +57,8 @@
             <main class="py-12">
                 {{ $slot }}
             </main>
+            <!-- Floating theme toggle -->
+            <x-floating-theme-toggle />
         </div>
     </body>
 </html>

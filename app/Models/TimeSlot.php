@@ -30,6 +30,15 @@ class TimeSlot extends Model
         'start_time' => 'datetime:H:i',
         'end_time' => 'datetime:H:i',
     ];
+    
+    /**
+     * Atrybuty, które powinny być dołączone do serializacji
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'formatted_time',
+    ];
 
     /**
      * Pobiera wszystkie lekcje dla danej godziny lekcyjnej
